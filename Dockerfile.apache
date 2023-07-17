@@ -1,0 +1,12 @@
+FROM php:7.4-apache
+
+COPY sources/ /var/www/html
+COPY php-apache2/my-apache2.conf /etc/apache2/apache2.conf
+
+RUN a2enmod rewrite
+
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN apt-get update && apt-get upgrade -y
+
+
+  
