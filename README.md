@@ -1,7 +1,18 @@
-Install docker and docker compose and run: 
+Install docker and Dockerfile.mydb and run: 
 
 ```
-docker-compose up
+docker build -t mysql -f Dockerfile.mydb . 
 ```
+Install docker and Dockerfile.apache and run: 
 
-Access to `localhost:8000`, if have other process run in this port, you need stop this process.
+```
+docker build -t project_CongNghePhanMem -f Dockerfile.apache .
+```
+The next step is to run the following two commands:
+
+```
+1. docker run -d --name db -e MYSQL_ROOT_PASSWORD=mysql12345 -e MYSQL_USER=trannguyenhan -e MYSQL_PASSWORD=mysql12345 -e MYSQL_DATABASE=selling_computer -p 9906:3306 -d ngotanloi/mysql:latest
+
+2. docker run -d --name selling-computer --link db -p 8000:80 -e DB_HOST=db -e DB_PORT=3306 -e DB_NAME=selling_computer -e DB_USERNAME=trannguyenhan -e DB_PASSWORD=mysql12345 ngotanloi/selling-computer
+```
+Access to `localhost:8000:80`, if have other process run in this port, you need stop this process.
